@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { signUp } from '../../utilities/users-service';
 
 export class SignUpForm extends Component {
     state = {
@@ -9,11 +10,25 @@ export class SignUpForm extends Component {
         error: ''
       };
  
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
-    alert(JSON.stringify(this.state));
+    console.log ("clicked")
+    const formData = {...this.state};
+    try {
+       
+        delete formData.error;
+        delete formData.confirm;
+        const user = await signUp(formData);
+        // Baby step!
+        console.log(user)
+
+    } catch {
+      // An error occurred 
+      this.setState({ error: 'Sign Up Failed - Try Again' });
+    }
   }
 
+  
   handleChange = (evt) => {
     this.setState({
         [evt.target.name]: evt.target.value,
@@ -36,7 +51,7 @@ export class SignUpForm extends Component {
             <input type="password" name="password" value={this.state.password} onChange={this.handleChange} required />
             <label>Confirm</label>
             <input type="password" name="confirm" value={this.state.confirm} onChange={this.handleChange} required />
-            <button type="submit" disabled={disable}>SIGN UP</button>
+            <button type="submit" disabled={disable} onClick={this.handleSubmit}>SIGN UP</button>
             </form>
         </div>
         <p className="error-message">&nbsp;{this.state.error}</p>
