@@ -7,13 +7,10 @@ export async function signUp(userData) {
     // which will ultimately return a JSON Web Token (JWT)
     const token = await usersAPI.signUp(userData);
     localStorage.setItem('token', token);
-
-    // localStorage.getItem('token')
-    // localStorage.removeItem('token')
-    // localStorage.clear
-    //return token;
     return getUser();
   }
+
+
 
   export async function login(userData) {
     const token = await usersAPI.login(userData);
@@ -22,8 +19,8 @@ export async function signUp(userData) {
   }
 
 
-export function getToken() {
 
+export function getToken() {
   const token = localStorage.getItem('token');
   if (!token) return null;
   const payload = JSON.parse(atob(token.split('.')[1]));
@@ -35,6 +32,13 @@ export function getToken() {
   return token;
 }
 
+
+
+export function checkToken() {
+  return usersAPI.checkToken().then(dateStr => new Date(dateStr));
+  // console.log(expDate)
+}
+
 export function getUser() {
   const token = getToken();
   // If there's a token, return the user in the payload, otherwise return null
@@ -44,3 +48,9 @@ export function getUser() {
 export function logOut() {
   localStorage.removeItem('token');
 }
+
+
+    // localStorage.getItem('token')
+    // localStorage.removeItem('token')
+    // localStorage.clear
+    //return token;
