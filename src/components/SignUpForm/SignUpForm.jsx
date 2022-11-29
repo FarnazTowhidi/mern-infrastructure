@@ -20,7 +20,7 @@ export class SignUpForm extends Component {
         delete formData.confirm;
         const user = await signUp(formData);
         // Baby step!
-        console.log(user)
+        this.props.setUser(user)
 
     } catch {
       // An error occurred 
