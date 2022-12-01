@@ -5,7 +5,6 @@ import { checkToken } from '../../utilities/users-service';
 function OrderHistoryPage() {
   async function handleCheckToken() {
     const expDate = await checkToken()
-    console.log (expDate)
   }
 
 

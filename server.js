@@ -4,8 +4,6 @@ const favicon = require("serve-favicon");
 const logger = require("morgan");
 
 require('dotenv').config();
-
-// Connect to the database
 require('./config/database');
 
 const app = express();
@@ -19,6 +17,8 @@ app.use(express.static(path.join(__dirname, "build")));
 app.use(require('./config/checkToken'))
 app.use('/api/users', require('./routes/api/users'));
 
+const ensureLoggedIn = require('./config/ensureLoggedIn');
+app.use('/api/items', ensureLoggedIn, require('./routes/api/items'));
 
 // Configure to use port 3001 instead of 3000 during
 // development to avoid collision with React's dev server

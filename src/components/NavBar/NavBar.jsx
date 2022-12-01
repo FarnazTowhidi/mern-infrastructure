@@ -13,6 +13,8 @@ function NavBar(props) {
       &nbsp; | &nbsp;
       <Link to="/orders/new">New Order</Link>
       &nbsp; | &nbsp;
+      <Link to="/hotels/">list Hotel</Link>
+      &nbsp; | &nbsp;
       <Link to="" onClick={handleLogOut}>Log Out</Link>
       &nbsp; | &nbsp;
       {props.user && <span>{props.user.name}</span>}

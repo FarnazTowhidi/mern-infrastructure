@@ -9,7 +9,6 @@ export default async function sendRequest(url, method = 'GET', payload = null) {
     }
 
     const token = getToken();
-    console.log (token)
     if (token) {
       options.headers ||= {};
       options.headers.Authorization = `Bearer ${token}`;
